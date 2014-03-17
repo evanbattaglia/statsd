@@ -16,10 +16,14 @@ function HttpullBackend(startupTime, config, emitter) {
   emitter.on('status', function(callback) { self.status(callback); });
 
   var port = this.config.port || 9615;
-  console.log("Httpull backend starting up at " + port);
+  var url = this.config.url || '/';
+  console.log('Httpull backend starting up at ' + port);
   http.createServer(function(req, res) {
     res.writeHead(200, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify(self.lastData));
+    if (req.url == url)
+      res.end(JSON.stringify(self.lastData));
+    else
+      res.end('{"error":"not found"}');
   }).listen(port);
 }
 
