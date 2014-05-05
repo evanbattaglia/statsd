@@ -44,7 +44,6 @@ HttpullBackend.prototype.flush = function(timestamp, metrics) {
   for (c in metrics.counters) {
     var val = metrics.counters[c];
     if (val > 0) {
-      console.log(this.config.redisKeyCounters + " ; " + c + " ; " + val);
       this.redisClient.hincrby([this.config.redisKeyCounters, c, val], function() {});
     }
   }
