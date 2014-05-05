@@ -28,13 +28,19 @@ function HttpullBackend(startupTime, config, emitter) {
 }
 
 HttpullBackend.prototype.flush = function(timestamp, metrics) {
+  // TODO: use redis so these don't get reset when statsd is reset.
+  // also, we can never remove any counters from memory this way.
+  var counters = this.lastData.counters || {};
+  for (c in metrics.counters)
+    counters[c] = (counters[c] || 0) + metrics.counters[c];
+
   var out = {
-    counters: metrics.counters,
-    timers: metrics.timers,
+    counters: counters,
+    timers: metrics.timers, // TODO
     gauges: metrics.gauges,
-    timer_data: metrics.timer_data,
-    counter_rates: metrics.counter_rates,
-    sets: function(vals) {
+    timer_data: metrics.timer_data, // TODO
+    counter_rates: metrics.counter_rates, // TODO
+    sets: function(vals) { // TODO
       var ret = {};
       for (var val in vals) {
         ret[val] = vals[val].values();
