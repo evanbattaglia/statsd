@@ -20,7 +20,6 @@ function handlePost(req, res) {
   var fullBody = '';
   req.on('data', function(chunk) { fullBody += chunk.toString(); });
   req.on('end', function() {
-    console.log(fullBody);
     fullBody.split(/\r?\n/).forEach(function(line) {
       // http://rubular.com/r/kS4qLjGrXC
       var match;
