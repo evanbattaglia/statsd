@@ -1,3 +1,4 @@
+// https://github.com/wanelo/gossip_girl
 var util = require('util'),
     dgram = require('dgram')
 
