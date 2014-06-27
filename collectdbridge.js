@@ -1,5 +1,5 @@
 var MINUTES_CLEANUP = 5;
-var MINUTES_STALEDATA = 60 * 24;
+var MINUTES_STALEDATA = 10;
 var PATH = '/fillmein';
 
 //////////////////////////////////////////
